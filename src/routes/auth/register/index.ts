@@ -27,10 +27,11 @@ export const post: RequestHandler =async ({ request }) => {
    }
 
    try{
+    let salt = await bcrypt.genSalt();
     await db.user.create({
         data: {
             username,
-            passwordHash: await bcrypt.hash(password, 10),
+            passwordHash: await bcrypt.hash(password, salt),
         },
     });
 

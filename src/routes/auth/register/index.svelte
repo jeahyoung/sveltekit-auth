@@ -1,5 +1,20 @@
+<script lang="ts" context="module">
+  import type { Load } from '@sveltejs/kit';
+  
+  export const load: Load = ({ session, props }) => {
+      if (session.user) {
+          return {
+              status: 302,
+              redirect: '/',
+          }
+      }
+      return { props }
+  }
+</script>
+
 <script lang="ts">
   import { send } from '$lib/api';
+
 
   // these props are passed from the page endpoint
   // so the user can get feedback if JavaScript doesn't work
